@@ -1,0 +1,9 @@
+{
+  "game": "oot",
+  "description": "Ocarina of Time : premier test, mesure sur l'écran titre sans route. Sert à valider l'installation.",
+  "boot": {"max_wait_s": 300, "min_presents": 120, "unlimited": false, "settle_s": 0},
+  "route": [{"wait_s": 20}],
+  "warmup_s": 5,
+  "measure": {"seconds": 20, "screenshots": 1},
+  "variants": [{"name": "base"}]
+}

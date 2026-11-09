@@ -1,0 +1,6 @@
+kajuen.json
+builds/
+runs/
+backups/
+history.csv
+__pycache__/

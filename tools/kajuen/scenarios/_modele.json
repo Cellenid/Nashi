@@ -1,0 +1,42 @@
+{
+  "name": "modele",
+  "game": "oot",
+  "description": "Modèle commenté. Copie ce fichier sous un autre nom (sans _ devant) pour créer un scénario.",
+  "_aide": {
+    "game": "clé de \"games\" dans kajuen.json, ou chemin complet du jeu",
+    "env": "variables EDEN_NX2_* appliquées à toutes les variantes",
+    "boot.max_wait_s": "délai maximum pour que le jeu affiche des images",
+    "boot.min_presents": "nombre d'images présentées avant de considérer le jeu démarré",
+    "boot.unlimited": "true pour lever la limite de vitesse pendant le démarrage et la route (plus rapide), rétablie avant la mesure",
+    "boot.settle_s": "attente après le démarrage, avant la route",
+    "route": "étapes rejouées à l'identique à chaque run : {buttons, left_stick, right_stick, frames}, ou {wait_s: n} pour attendre n secondes (chargements), ou {screenshot: \"nom\"} pour vérifier un passage",
+    "route.buttons": "A B X Y L R ZL ZR Plus Minus Up Down Left Right StickL StickR",
+    "route.sticks": "[x, y] entre -1 et 1, le haut est +y",
+    "warmup_s": "attente à l'endroit de mesure avant de mesurer (shaders, streaming)",
+    "measure.seconds": "durée de la mesure des frame times (60 au maximum)",
+    "measure.screenshots": "nombre de captures après la mesure",
+    "measure.profile_s": "optionnel, profile les threads GPU pendant n secondes (profil.json)",
+    "variants": "chaque variante relance Nashi ; env et reject_hashes (hash de shaders sur 16 chiffres hexadécimaux) s'ajoutent à ceux du scénario",
+    "repeat": "nombre de passages par variante, moyennés dans le rapport"
+  },
+  "env": {},
+  "boot": {"max_wait_s": 240, "min_presents": 120, "unlimited": true, "settle_s": 5},
+  "route": [
+    {"wait_s": 10},
+    {"screenshot": "ecran-titre"},
+    {"buttons": ["A"], "frames": 6},
+    {"frames": 120},
+    {"buttons": ["A"], "frames": 6},
+    {"wait_s": 15},
+    {"screenshot": "apres-chargement"},
+    {"left_stick": [0, 1], "frames": 180},
+    {"frames": 60}
+  ],
+  "warmup_s": 10,
+  "measure": {"seconds": 30, "screenshots": 2},
+  "variants": [
+    {"name": "base"},
+    {"name": "gpu-split", "env": {"EDEN_NX2_SPLIT": "2"}}
+  ],
+  "repeat": 1
+}

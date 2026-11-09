@@ -40,6 +40,10 @@ Nashi is a fork of [Lichii](https://github.com/zortos293/Lichii), itself a fork 
 3. If nx2 is behind `upstream/nx2`, merge upstream first. Port an existing upstream fix before writing a new one, and cite its PR or commit.
 4. Write a new fix only when nothing upstream addresses the root cause the log shows.
 
+## Kajuen test bench
+
+`tools/kajuen` boots a game on the owner's PC with the debug server on, replays a scenario's route with injected input, measures frame times and screenshots, and compares variants and builds (`tools/kajuen/README.md`). Prefer a Kajuen scenario with variants for any performance claim, and report the numbers from its run, not from a single live `frame_times` call.
+
 ## Live debug server
 
 Every debug package on the PC launches with `EDEN_NX2_DEBUG_SERVER=127.0.0.1:6545` (in the env argument of `build-fix.sh`; `EDEN_NX2_DEBUG_DIR=<dir>` moves its dumps). Ask the running game from bash on the PC with native Windows Python; MSYS `python` rejects `C:/` paths.

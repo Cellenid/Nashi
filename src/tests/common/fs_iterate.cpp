@@ -11,7 +11,7 @@ struct TempTree {
     std::filesystem::path root;
     TempTree() {
         root = std::filesystem::temp_directory_path() /
-               ("lichii-fs-iterate-" + std::to_string(std::random_device{}()));
+               ("nashi-fs-iterate-" + std::to_string(std::random_device{}()));
         std::filesystem::create_directories(root / "sub");
         for (const auto& name : {"a.nca", "b.nca", "c.nca", "sub/d.nca", "sub/e.nca"}) {
             std::ofstream{root / name} << "x";

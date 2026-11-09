@@ -126,7 +126,7 @@ private slots:
 Session DialogTest::Seed() {
     return {.program_id = 0x0400000000000000ULL,
             .title = QStringLiteral("Synthetic Switch 2 game"),
-            .build = QStringLiteral("Lichii prototype (synthetic)"),
+            .build = QStringLiteral("Nashi prototype (synthetic)"),
             .game_version = QStringLiteral("1.0.0"),
             .cpu = QStringLiteral("Example CPU"),
             .gpu = {},
@@ -211,7 +211,7 @@ void DialogTest::explicitCatalogAndPaging() {
     QCOMPARE(request.url().path(), QStringLiteral("/api/games"));
     QCOMPARE(QUrlQuery(request.url()).queryItemValue(QStringLiteral("sort")),
              QStringLiteral("title"));
-    QVERIFY(!request.hasRawHeader("X-Lichii-Client"));
+    QVERIFY(!request.hasRawHeader("X-Nashi-Client"));
     network.requests.last().reply->Complete(200, Catalog(1, 2));
     QCOMPARE(dialog.confirmed_game, 0);
     dialog.confirm->click();
@@ -254,7 +254,7 @@ void DialogTest::consentAndDoubleSubmit() {
     QCOMPARE(sent.operation, QNetworkAccessManager::PostOperation);
     QCOMPARE(sent.request.url().toString(),
              QStringLiteral("https://lichii.zortos.me/api/v1/desktop/reports"));
-    QCOMPARE(sent.request.rawHeader("X-Lichii-Client"), QByteArray("desktop/1"));
+    QCOMPARE(sent.request.rawHeader("X-Nashi-Client"), QByteArray("desktop/1"));
     QVERIFY(!QUuid(QString::fromUtf8(sent.request.rawHeader("Idempotency-Key"))).isNull());
     for (const auto& header : {"Cookie", "Authorization", "Origin", "Sec-Fetch-Site"}) {
         QVERIFY(!sent.request.hasRawHeader(header));
@@ -512,7 +512,7 @@ void DialogTest::isolatedHttpTransport() {
             headers.insert(line.left(colon).trimmed().toLower(), line.mid(colon + 1).trimmed());
         }
     }
-    QCOMPARE(headers.value("x-lichii-client"), QByteArray("desktop/1"));
+    QCOMPARE(headers.value("x-nashi-client"), QByteArray("desktop/1"));
     const auto body = request.mid(request.indexOf("\r\n\r\n") + 4);
     QCOMPARE(body, dialog.submitted_payload);
     QVERIFY(!body.contains("must-not-be-sent"));

@@ -89,16 +89,16 @@ Build artifacts are retained for seven days. Published GitHub Release assets rem
 
 ## Windows PGO profile
 
-`windows-x86_64-pgo` is the `windows-x86_64` build plus `-fprofile-use=lichii-windows.profdata`. The profile is an LLVM indexed IR profile from clang-cl, so its function names use the MSVC ABI. Linux's `eglantine.profdata` uses Itanium names, and clang-cl cannot use it. The committed profile comes from about six minutes of Ocarina of Time gameplay. Code that run never reached gets no profile data, so other games gain less.
+`windows-x86_64-pgo` is the `windows-x86_64` build plus `-fprofile-use=nashi-windows.profdata`. The profile is an LLVM indexed IR profile from clang-cl, so its function names use the MSVC ABI. Linux's `eglantine.profdata` uses Itanium names, and clang-cl cannot use it. The committed profile comes from about six minutes of Ocarina of Time gameplay. Code that run never reached gets no profile data, so other games gain less.
 
 A profile older than the source only produces warnings. Functions whose code changed since training lose their profile data and are compiled as in the ThinLTO build. Retrain when those warnings cover code that matters, or when the LLVM version changes. clang-cl reads only the indexed format its own LLVM writes, so use the version that `tools/windows/install-llvm.ps1` installs.
 
 To retrain:
 
 1. Configure a Release build as the `windows-x86_64` job does, adding `-fprofile-generate=<dir> -fprofile-update=atomic` to `CMAKE_C_FLAGS` and `CMAKE_CXX_FLAGS`, and build `yuzu`.
-2. Run `lichii.exe` with `LLVM_PROFILE_FILE=<dir>/lichii-%m-%p.profraw`, play the scenes the profile should cover, and exit normally. Counters are written only at exit.
-3. Merge with that LLVM: `llvm-profdata merge -o lichii-windows.profdata <dir>/*.profraw`.
-4. Check that `llvm-profdata show --all-functions lichii-windows.profdata` lists names starting with `?`, then replace the file in the repository root.
+2. Run `nashi.exe` with `LLVM_PROFILE_FILE=<dir>/nashi-%m-%p.profraw`, play the scenes the profile should cover, and exit normally. Counters are written only at exit.
+3. Merge with that LLVM: `llvm-profdata merge -o nashi-windows.profdata <dir>/*.profraw`.
+4. Check that `llvm-profdata show --all-functions nashi-windows.profdata` lists names starting with `?`, then replace the file in the repository root.
 
 ## Release naming
 
